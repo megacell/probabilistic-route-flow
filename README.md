@@ -25,7 +25,7 @@ Development
 * For this project, and any derived from it, please run the following command
   from the project root directory:
 
-          ln -s ../../pre-commit.sh .git/hooks/pre-commit
+      ln -s ../../pre-commit.sh .git/hooks/pre-commit
 
 * Write unit tests as you go. Document as you go.
 * Run all unit tests before you push any code.
