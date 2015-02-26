@@ -30,6 +30,18 @@ class TestFactory(object):
         return (origins, od_demand)
 
     @classmethod
+    def create_od_demand_dictionary_from_connected_pairs(self,
+                                                         origins,
+                                                         connected_pairs):
+        od_demand = {}
+        for r, s in connected_pairs:
+            if r not in od_demand:
+                od_demand[r] = {}
+            od_demand[r][s] = (r, s, random.uniform(0, 100))
+
+        return (origins, od_demand)
+
+    @classmethod
     def create_od_demand(self, origins=None, od_demand_dictionary=None):
         from route_flow.od_demand import ODDemand
 
