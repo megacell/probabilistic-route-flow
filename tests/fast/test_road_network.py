@@ -37,9 +37,14 @@ class TestRoadNetwork(unittest.TestCase):
     def test_has_network(self):
         self.assertTrue(self.subject.network)
 
-    def test_load_la(self):
+    def test_los_angeles(self):
         subject = RoadNetwork.los_angeles(2)
         self.assertTrue(subject)
+
+    def test_los_angeles_origins_are_objects(self):
+        from route_flow.origin import Origin
+        subject = RoadNetwork.los_angeles(2)
+        self.assertIsInstance(subject.od_demand.origins[0], Origin)
 
 if __name__ == '__main__':
     unittest.main()

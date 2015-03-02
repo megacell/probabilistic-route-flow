@@ -53,3 +53,9 @@ class TestFactory(object):
 
         return (origins, od_demand_dictionary,
                 ODDemand(od_demand_dictionary))
+
+    @classmethod
+    def create_los_angeles_network(self):
+        from route_flow.road_network import RoadNetwork
+
+        return RoadNetwork.los_angeles(demand=2)

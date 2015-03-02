@@ -20,6 +20,17 @@ class TestODDemand(unittest.TestCase):
             self._od_demand_dictionary[test_origin][test_destination],
             self.subject.find_by_od(test_origin, test_destination))
 
+    def test_od_pairs(self):
+        od_pairs = [(r,s) for r, dests in
+                    self._od_demand_dictionary.iteritems() for s in dests]
+        self.assertEqual(od_pairs,
+                         self.subject.od_pairs())
+
+    def test_origins(self):
+        origins = self._od_demand_dictionary.keys()
+        self.assertEqual(set(origins),
+                         set(self.subject.origins))
+
     def test_find_by_od_no_such_destination(self):
         from route_flow.origin import Origin
         test_origin = self._origins[0]

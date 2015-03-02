@@ -13,6 +13,7 @@ import networkx as nx
 import scipy.io
 
 import od_demand
+import origin
 
 # Then follows authorship information
 __author__ = "syadlowsky"
@@ -21,7 +22,7 @@ class RoadNetwork:
 
     def __init__(self, network, od_demand):
         self.network = network
-        self._od_demand = od_demand
+        self.od_demand = od_demand
 
     @classmethod
     def los_angeles(_class, demand=3, parameters=None, path=None):
@@ -56,8 +57,10 @@ class RoadNetwork:
                              delay_slope=slope)
 
         for (r, s, flow) in ODs:
-            if r not in od_demand_dict:
-                od_demand_dict[r] = {}
-            od_demand_dict[r][s] = (r, s, flow)
+            origin_ = origin.Origin(r, [r])
+            destination = origin.Origin(s, [s])
+            if origin not in od_demand_dict:
+                od_demand_dict[origin_] = {}
+            od_demand_dict[origin_][destination] = (origin_, destination, flow)
 
         return RoadNetwork(network, od_demand.ODDemand(od_demand_dict))

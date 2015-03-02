@@ -39,6 +39,15 @@ class ODDemand:
             return None
         return (self.find_by_od(r, s) for r in origins)
 
+    def od_pairs(self):
+        """Lists OD pairs in network"""
+        return [(r,s) for r, dests in
+                    self._lookup.iteritems() for s in dests]
+
+    @property
+    def origins(self):
+        return self._lookup.keys()
+
     def _form_destination_lookup(self):
         self._destination_lookup = {}
         for r, destination_demand_map in self._lookup.iteritems():
