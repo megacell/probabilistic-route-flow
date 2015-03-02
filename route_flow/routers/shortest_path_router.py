@@ -10,13 +10,14 @@ import networkx as nx
 import scipy.io
 
 from route_flow import road_network
+import route_flow.routers.base_router
 
 __author__ = "syadlowsky"
 
-class ShortestPathRouter(object):
+class ShortestPathRouter(route_flow.routers.base_router.BaseRouter):
 
     def __init__(self, road_network):
-        self._road_network = road_network
+        super(ShortestPathRouter, self).__init__(road_network)
 
     def path_for_od(self, r, s):
         # TODO(syadlowsky): shouldn't be accessing this private object. Need to

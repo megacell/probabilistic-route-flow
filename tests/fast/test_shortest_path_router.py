@@ -23,5 +23,11 @@ class TestShortestPathRouter(unittest.TestCase):
         path = self.subject.path_for_od(r, s)
         self.assertEqual([8.0, 17.0, 24.0, 37.0, 23.0, 22.0], path)
 
+    # Should be a policy over links
+    def test_route_for_od(self):
+        r, s = self.od_pair
+        route = self.subject.route_for_od(r, s)
+        self.assertIsInstance(route, nx.DiGraph)
+
 if __name__ == '__main__':
     unittest.main()
