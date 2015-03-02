@@ -6,12 +6,13 @@ import networkx as nx
 
 from tests.test_factory import TestFactory
 
+from route_flow.road_network import RoadNetwork
+
 __author__ = 'syadlowsky'
 
 class TestRoadNetwork(unittest.TestCase):
     def setUp(self):
         from route_flow.origin import Origin
-        from route_flow.road_network import RoadNetwork
 
         network = nx.fast_gnp_random_graph(20, 0.1, directed=True)
         shortest_paths = nx.all_pairs_shortest_path_length(network)
@@ -35,6 +36,10 @@ class TestRoadNetwork(unittest.TestCase):
 
     def test_has_network(self):
         self.assertTrue(self.subject.network)
+
+    def test_load_la(self):
+        subject = RoadNetwork.los_angeles(2)
+        self.assertTrue(subject)
 
 if __name__ == '__main__':
     unittest.main()

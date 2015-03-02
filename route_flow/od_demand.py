@@ -16,6 +16,7 @@ __author__ = "syadlowsky"
 class ODDemand:
 
     def __init__(self, od_demand_dictionary={}):
+        # TODO(syadlowsky): document form of od_demand_dictionary
         self._lookup = od_demand_dictionary
         self._form_destination_lookup()
 
