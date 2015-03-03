@@ -12,7 +12,7 @@ None
 # Then follows authorship information
 __author__ = "syadlowsky"
 
-class Origin:
+class Origin(object):
 
     def __init__(self, id_, vertices):
         self._vertices = vertices

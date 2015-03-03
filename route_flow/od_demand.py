@@ -13,7 +13,7 @@ None
 # Then follows authorship information
 __author__ = "syadlowsky"
 
-class ODDemand:
+class ODDemand(object):
 
     def __init__(self, od_demand_dictionary={}):
         # TODO(syadlowsky): document form of od_demand_dictionary

@@ -18,7 +18,7 @@ import origin
 # Then follows authorship information
 __author__ = "syadlowsky"
 
-class RoadNetwork:
+class RoadNetwork(object):
 
     def __init__(self, network, od_demand):
         self.network = network
