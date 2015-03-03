@@ -46,5 +46,12 @@ class TestRoadNetwork(unittest.TestCase):
         subject = RoadNetwork.los_angeles(2)
         self.assertIsInstance(subject.od_demand.origins[0], Origin)
 
+    def test_los_angeles_nodes_have_pos(self):
+        subject = RoadNetwork.los_angeles(2)
+        for node in subject.network.nodes():
+            self.assertIn('pos', subject.network.node[node],
+                          msg="Node (%s) doesn't have 'pos' value: %s" %
+                          (node, subject.network.node[node]))
+
 if __name__ == '__main__':
     unittest.main()

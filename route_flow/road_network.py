@@ -47,12 +47,11 @@ class RoadNetwork:
         network = nx.DiGraph()
         od_demand_dict = {}
 
-        for index, (posx, posy) in enumerate(nodes):
+        for index_, (posx, posy) in enumerate(nodes):
+            index = index_ + 1
             network.add_node(index, pos=(posx, posy))
 
         for startnode, endnode, route, ffdelay, slope in links:
-            if startnode < 1:
-                print "HAHA"
             network.add_edge(startnode, endnode, free_flow_delay=ffdelay,
                              delay_slope=slope)
 
