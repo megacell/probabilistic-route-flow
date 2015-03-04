@@ -16,8 +16,8 @@ __author__ = "syadlowsky"
 
 class ShortestPathRouter(route_flow.routers.base_router.BaseRouter):
 
-    def __init__(self, road_network):
-        super(ShortestPathRouter, self).__init__(road_network)
+    def __init__(self, road_network, beta=1.0):
+        super(ShortestPathRouter, self).__init__(road_network, beta)
 
     def path_for_od(self, r, s):
         # TODO(syadlowsky): shouldn't be accessing this private object. Need to

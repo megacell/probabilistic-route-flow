@@ -51,6 +51,18 @@ class Route(object):
 
         return likelihoods
 
+    def link_likelihood_list(self):
+        likelihoods = self.link_likelihood()
+
+        likelihood_list = []
+        for e in self.network.edges_iter():
+            if e in likelihoods:
+                likelihood_list.append(likelihoods[e])
+            else:
+                likelihood_list.append(0.0)
+
+        return likelihood_list
+
 if __name__ == "__main__":
     # For reproducible results, set or save your seed to the random number
     # generator

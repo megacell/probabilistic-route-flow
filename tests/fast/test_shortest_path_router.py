@@ -8,6 +8,7 @@ from tests.test_factory import TestFactory
 
 from route_flow.routers.shortest_path_router import ShortestPathRouter
 from route_flow.origin import Origin
+from route_flow.route import Route
 
 __author__ = 'syadlowsky'
 
@@ -27,7 +28,7 @@ class TestShortestPathRouter(unittest.TestCase):
     def test_route_for_od(self):
         r, s = self.od_pair
         route = self.subject.route_for_od(r, s)
-        self.assertIsInstance(route, nx.DiGraph)
+        self.assertIsInstance(route, Route)
 
 if __name__ == '__main__':
     unittest.main()

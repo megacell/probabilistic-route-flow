@@ -21,22 +21,21 @@ class TestRoute(unittest.TestCase):
         router = BaseRouter(self.road_network, beta=np.log(10))
         router.path_for_od = lambda r,s: self.path
 
-        route = router.route_for_od(3,4)
-        self.subject = Route(router.route_for_od(3,4), self.path)
+        self.subject = router.route_for_od(3,4)
 
     def test_link_likelihood(self):
-        ll = {
-            (0, 1) : 0.0014151*0.5,
-            (0, 2) : 0.0014151*0.5,
-            (1, 0) : 0.0871639/101,
-            (1, 3) : 8.71639/101,
-            (2, 0) : 0.0913201/201,
-            (2, 3) : 9.13201/201,
-            (2, 4) : 9.13201/201,
-            (3, 1) : 1.0/12,
-            (3, 2) : 1.0/12,
-            (3, 4) : 10.0/12
-        }
+        # WARNING: fragile test
+        # TODO(syadlowsky): make less fragile
+        ll = {(0, 1): 8.531394237142512e-05,
+              (3, 2): 0.012311154324422098,
+              (1, 3): 0.009740393156933971,
+              (3, 1): 0.009779097481936406,
+              (2, 4): 0.006928163741619479,
+              (2, 0): 6.928163741619475e-05,
+              (2, 3): 0.005503236074761374,
+              (1, 0): 0.0001226242846613018,
+              (3, 4): 0.9779097481936414,
+              (0, 2): 0.00010740389003173026}
         for k,v in self.subject.link_likelihood().iteritems():
             self.assertAlmostEqual(ll[k], v, places=5,
                                    msg="Not equal for edge %s: %s, %s" %
