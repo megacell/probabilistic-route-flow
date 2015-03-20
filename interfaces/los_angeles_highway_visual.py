@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import random
 
 import networkx as nx
@@ -8,7 +9,7 @@ import route_flow.road_network
 from route_flow import routers
 import route_flow.routers.shortest_path_router
 
-CMAP_NAME = 'winter'
+CMAP_NAME = 'PiYG'
 
 def main():
     los_angeles_highways = route_flow.road_network.RoadNetwork.los_angeles(3)
