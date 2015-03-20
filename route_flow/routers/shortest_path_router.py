@@ -19,10 +19,8 @@ class ShortestPathRouter(route_flow.routers.base_router.BaseRouter):
     def __init__(self, road_network, beta=1.0):
         super(ShortestPathRouter, self).__init__(road_network, beta)
 
-    def path_for_od(self, r, s):
-        # TODO(syadlowsky): shouldn't be accessing this private object. Need to
-        # create an interface here.
-        start_node = r._vertices[0]
-        end_node = s._vertices[0]
+    def path_for_od(self, r, s, weight='free_flow_delay'):
+        start_node = r.vertices[0]
+        end_node = s.vertices[0]
         return nx.shortest_path(self._road_network.network, start_node,
-                                end_node, weight='free_flow_delay')
+                                end_node, weight=weight)

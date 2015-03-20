@@ -15,11 +15,11 @@ __author__ = "syadlowsky"
 class Origin(object):
 
     def __init__(self, id_, vertices):
-        self._vertices = vertices
+        self.vertices = vertices
         self._taz_id = id_
 
     def contains_vertex(self, vertex):
-        return vertex in self._vertices
+        return vertex in self.vertices
 
     def identified_as(self, id_):
         return self._taz_id == id_

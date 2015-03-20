@@ -45,6 +45,10 @@ class ODDemand(object):
                     self._lookup.iteritems() for s in dests]
 
     @property
+    def destinations(self):
+        return self._destination_lookup.keys()
+
+    @property
     def origins(self):
         return self._lookup.keys()
 
