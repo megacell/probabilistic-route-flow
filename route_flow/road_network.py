@@ -25,7 +25,7 @@ class RoadNetwork(object):
         self.od_demand = od_demand
 
     @classmethod
-    def los_angeles(_class, demand=3, parameters=None, path=None):
+    def los_angeles(_class, demand=4, parameters=None, path=None):
         """Generate small map of L.A. with 122 links and 44 modes
         """
 
@@ -58,7 +58,7 @@ class RoadNetwork(object):
         for (r, s, flow) in ODs:
             origin_ = origin.Origin(r, [r])
             destination = origin.Origin(s, [s])
-            if origin not in od_demand_dict:
+            if origin_ not in od_demand_dict:
                 od_demand_dict[origin_] = {}
             od_demand_dict[origin_][destination] = (origin_, destination, flow)
 

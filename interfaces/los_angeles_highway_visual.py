@@ -12,7 +12,7 @@ import route_flow.routers.shortest_path_router
 CMAP_NAME = 'PiYG'
 
 def main():
-    los_angeles_highways = route_flow.road_network.RoadNetwork.los_angeles(3)
+    los_angeles_highways = route_flow.road_network.RoadNetwork.los_angeles(4)
     shortest_path_router = routers.shortest_path_router.ShortestPathRouter(
         los_angeles_highways, np.log(10))
 

@@ -61,6 +61,13 @@ class ODDemand(object):
                 else:
                     self._destination_lookup[s] = [r]
 
+    def __str__(self):
+        _str = "Origin   Dest Demand\n"
+        for r in self.origins:
+            for _, s, f in self.find_by_origin(r):
+                _str += "%6i %6i %6.2f\n" % (r._taz_id, s._taz_id, f)
+        return _str
+
 if __name__ == "__main__":
     # For reproducible results, set or save your seed to the random number
     # generator

@@ -23,7 +23,7 @@ class TestRoadNetwork(unittest.TestCase):
             origins.add(r)
             for s in shortest_paths[r]:
                 origins.add(s)
-                od_pairs.append((Origin(r, r), Origin(s, s)))
+                od_pairs.append((Origin(r, (r,)), Origin(s, (s,))))
         self.origins = list(origins)
 
         _, od_demand_dictionary = \
