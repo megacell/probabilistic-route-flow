@@ -19,8 +19,8 @@ class ShortestPathRouter(route_flow.routers.base_router.BaseRouter):
     def __init__(self, road_network, beta=1.0):
         super(ShortestPathRouter, self).__init__(road_network, beta)
 
-    def path_for_od(self, r, s, weight='free_flow_delay'):
+    def paths_for_od(self, r, s, weight='free_flow_delay'):
         start_node = r.vertices[0]
         end_node = s.vertices[0]
-        return nx.shortest_path(self._road_network.network, start_node,
+        return nx.all_shortest_paths(self._road_network.network, start_node,
                                 end_node, weight=weight)

@@ -4,7 +4,6 @@ import random
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle
 
 import route_flow.road_network
 from route_flow import routers
@@ -18,8 +17,6 @@ def main():
 
     link_flows = UserEquilibriumSolver.equilibrium_link_flows(
         los_angeles_highways)
-    pickle.dump(link_flows, open('link_flows.pkl', 'w'))
-    # link_flows = pickle.load(open('link_flows.pkl'))
 
     node_pos_dict = {node:data['pos'] for node, data in
                      los_angeles_highways.network.nodes_iter(data=True)}

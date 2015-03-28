@@ -1,6 +1,5 @@
 import cvxopt
 import networkx as nx
-import pickle
 
 import numpy as np
 

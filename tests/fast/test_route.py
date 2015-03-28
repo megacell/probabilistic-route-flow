@@ -19,7 +19,7 @@ class TestRoute(unittest.TestCase):
         self.path = [3, 4]
         self.road_network = RoadNetwork(self.graph, None)
         router = BaseRouter(self.road_network, beta=np.log(10))
-        router.path_for_od = lambda r,s: self.path
+        router.paths_for_od = lambda r,s: (self.path for x in xrange(1))
 
         self.subject = router.route_for_od(3,4)
 

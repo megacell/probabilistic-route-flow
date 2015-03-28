@@ -23,8 +23,12 @@ class BaseRouter(object):
         self._road_network = road_network
         self._beta = beta
 
-    def path_for_od(self, r, s):
+    def paths_for_od(self, r, s):
+        """Returns an iterator over paths"""
         pass
+
+    def path_for_od(self, r, s, **kwargs):
+        return next(self.paths_for_od(r, s, **kwargs))
 
     @staticmethod
     def _edge_in_path(path, edge):
@@ -37,43 +41,49 @@ class BaseRouter(object):
         return False
 
     def route_for_od(self, r, s):
-        path = self.path_for_od(r, s)
-        route = self._road_network.network.copy()
+        return next(self.routes_for_od(r, s))
 
-        for edge in route.edges_iter():
-            u,v = edge
-            if BaseRouter._edge_in_path(path, edge):
-                route.edge[u][v]['pathweight'] = 0.1
-            else:
-                route.edge[u][v]['pathweight'] = 1.0
+    def routes_for_od(self, r, s):
+        """Returns a generator for routes from paths created by paths_for_od"""
 
-        # Set node weights
-        for node in route:
-            try:
-                dist_from_path = nx.shortest_path_length(route,
-                                                         node,
-                                                         path[-1],
-                                                         weight='pathweight')
-            except nx.NetworkXNoPath:
-                dist_from_path = float('inf')
+        for path in self.paths_for_od(r, s):
+            path = self.path_for_od(r, s)
+            route = self._road_network.network.copy()
 
-            route.node[node]['weight'] = math.exp(-self._beta*dist_from_path)
+            for edge in route.edges_iter():
+                u,v = edge
+                if BaseRouter._edge_in_path(path, edge):
+                    route.edge[u][v]['pathweight'] = 0.1
+                else:
+                    route.edge[u][v]['pathweight'] = 1.0
 
-        
-        # Create policy from weights
-        def edge_weight(u,v):
-            return route.node[v]['weight']*math.exp(
-                -self._beta*route.edge[u][v]['pathweight'])
+            # Set node weights
+            for node in route:
+                try:
+                    dist_from_path = nx.shortest_path_length(route,
+                                                             node,
+                                                             path[-1],
+                                                             weight='pathweight')
+                except nx.NetworkXNoPath:
+                    dist_from_path = float('inf')
 
-        for node in route:
-            edges = route.edges(node)
-            total_edge_weight = reduce(
-                lambda x,y: x+y,
-                [edge_weight(u,v) for u,v in edges],
-                0.0)
+                route.node[node]['weight'] = math.exp(-self._beta*dist_from_path)
 
-            for u,v in edges:
-                route[u][v]['weight'] = \
-                    edge_weight(u, v) / float(total_edge_weight)
+            
+            # Create policy from weights
+            def edge_weight(u,v):
+                return route.node[v]['weight']*math.exp(
+                    -self._beta*route.edge[u][v]['pathweight'])
 
-        return Route(route, path)
+            for node in route:
+                edges = route.edges(node)
+                total_edge_weight = reduce(
+                    lambda x,y: x+y,
+                    [edge_weight(u,v) for u,v in edges],
+                    0.0)
+
+                for u,v in edges:
+                    route[u][v]['weight'] = \
+                        edge_weight(u, v) / float(total_edge_weight)
+
+            yield Route(route, path)
