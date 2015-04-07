@@ -47,7 +47,6 @@ class BaseRouter(object):
         """Returns a generator for routes from paths created by paths_for_od"""
 
         for path in self.paths_for_od(r, s):
-            path = self.path_for_od(r, s)
             route = self._road_network.network.copy()
 
             for edge in route.edges_iter():

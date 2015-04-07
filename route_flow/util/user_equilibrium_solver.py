@@ -102,19 +102,18 @@ class UserEquilibriumSolver(object):
         c_a = capacity of link a per unit of time
         S_a(v_a) is the average travel time for a vehicle on link a
         """
+        congestive_cost = 0.03 * cvxopt.div(
+            cvxopt.mul(flow, delay_slope) ** 5, delay_slope) + flow
+        delay_with_flow = cvxopt.blas.dotu(congestive_cost,
+                                           free_flow_delay)
 
         congestion_factor = 0.15 * (cvxopt.mul(flow, delay_slope) ** 4)
-        delay_with_flow = sum(cvxopt.mul((1 + congestion_factor),
-                                         free_flow_delay))
-
-        grad_delay_wrt_flow = cvxopt.mul(
-            cvxopt.mul(0.6 * (cvxopt.mul(flow, delay_slope) ** 3), delay_slope),
-            free_flow_delay)
-
+        grad_delay_wrt_flow = cvxopt.mul((1 + congestion_factor),
+                                         free_flow_delay)
 
         hessian_delay_wrt_flow = cvxopt.mul(
-            cvxopt.mul(1.2 * (cvxopt.mul(flow, delay_slope) ** 2), delay_slope ** 2),
-            free_flow_delay).T
+            cvxopt.mul(0.6 * (cvxopt.mul(flow, delay_slope) ** 3), delay_slope),
+            free_flow_delay)
 
         return (delay_with_flow, grad_delay_wrt_flow, hessian_delay_wrt_flow)
 
