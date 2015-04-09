@@ -19,6 +19,8 @@ http://www.springer.com/cda/content/document/cda_downloaddocument/9783642051555-
 import networkx as nx
 import numpy as np
 
+from route_flow.util.memoize import memoize
+
 # Then follows authorship information
 __author__ = "syadlowsky"
 
@@ -28,6 +30,7 @@ class Route(object):
         self.network = network
         self.path = path
 
+    @memoize
     def link_likelihood(self):
         """Returns P(visiting link | taking this route)"""
         nodelist = self.network.nodes()

@@ -14,6 +14,7 @@ import scipy.io
 from route_flow import road_network
 from route_flow import routers
 from route_flow.route import Route
+from route_flow.util.memoize import memoize
 
 __author__ = "syadlowsky"
 
@@ -43,6 +44,7 @@ class BaseRouter(object):
     def route_for_od(self, r, s):
         return next(self.routes_for_od(r, s))
 
+    @memoize
     def routes_for_od(self, r, s):
         """Returns a generator for routes from paths created by paths_for_od"""
 

@@ -33,7 +33,7 @@ class TestEquilibriumRouter(unittest.TestCase):
     def test_path_for_od(self):
         r, s = self.od_pair
         path = self.subject.path_for_od(r, s)
-        self.assertEqual([8.0, 17.0, 36.0, 37.0, 38.0, 28.0, 22.0], path)
+        self.assertEqual([8.0, 17.0, 24.0, 37.0, 23.0, 22.0], path)
 
     # Should be a policy over links
     def test_route_for_od(self):

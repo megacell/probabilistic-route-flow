@@ -68,6 +68,11 @@ class ODDemand(object):
                 _str += "%6i %6i %6.2f\n" % (r._taz_id, s._taz_id, f)
         return _str
 
+    def __iter__(self):
+        for r, dest_dict in self._lookup.iteritems():
+            for s, d in dest_dict.iteritems():
+                yield d
+
 if __name__ == "__main__":
     # For reproducible results, set or save your seed to the random number
     # generator
